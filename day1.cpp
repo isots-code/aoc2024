@@ -2,7 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
-#include <unordered_map>
+#include <unordered_set>
 
 
 #include "day1.h"
@@ -53,16 +53,13 @@ int solveDay1part2(std::vector<int> firstColumn, std::vector<int> secondColumn) 
         std::cerr << "Different lenght vectors!" << std::endl;
         return -1;
     }
-    std::unordered_map<int, int> map;
-    for (const auto& ele : firstColumn)
-        map[ele] = 0;
-
+    std::unordered_multiset<int> set;
     for (const auto& ele : secondColumn)
-        map[ele]++;
+        set.insert(ele);
 
     int res = 0;
     for (const auto& ele : firstColumn) {
-        auto a = map[ele];
+        auto a = set.count(ele);
         res += ele * a;
     }
 
